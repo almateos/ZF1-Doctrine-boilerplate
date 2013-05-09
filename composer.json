@@ -1,0 +1,44 @@
+{
+    "name": "almateos/zf1-boilerplate",
+    "description": "zf1-boilerplate",
+    "type":"application",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Frederik Eychenié",
+            "email": "frederik@alamateos.com"
+        },
+        {
+            "name": "Nicolas Morel",
+            "email": "nico@multeegaming.com"
+        },
+        {
+            "name": "Vincent Morel",
+            "email": "vincent@almateos.com"
+        }
+    ],
+    "config": {
+        "vendor-dir":"resources/vendor",
+        "bin-dir":"resources/bin"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/almateos/alma-lib.git"
+        }
+    ],
+    "require": {
+        "bombayworks/zendframework1": "v1.12.1",
+        "symfony/console":"v2.1.6",
+        "symfony/finder":"v2.1.6",
+        "doctrine/common":"2.3.*@stable",
+        "doctrine/mongodb-odm": "1.0.0-BETA7",
+        "doctrine/orm": "2.3.*@stable",
+        "almateos/alma-lib":"dev-master",
+        "incube/base": "dev-master",
+        "incube/event": "dev-master",
+        "incubatio/yam": "dev-master",
+
+        "codeception/codeception": "1.5.5"
+    }
+}

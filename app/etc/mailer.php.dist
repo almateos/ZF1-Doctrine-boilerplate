@@ -1,0 +1,54 @@
+<?php
+
+/***************************************** PRODUCTION *****************************************/
+$production = array(
+        'transport' => array(
+            'type' => 'smtp',
+            'host' => 'smtp.mandrillapp.com',
+            'config' => array(
+                'ssl'  => 'tls',
+                'port' => 587,
+                'auth' => 'login',
+                'username' => '<prod mail user>',
+                'password' => '<prod mail password>',
+                ),
+
+            ),
+        'defaults' => array(
+            'from' => array(
+                'email'=> 'support@almateos.com',
+                'name' => 'Almateos'
+            ),
+            'reply-to' => array(
+                'email'=>'support@almateos.com',
+                'name' => 'Almateos Support'
+            )
+        ),
+        'template_folder' => ROOT_PATH . '/resources/files/mails',
+
+        );
+
+/******************************************* STAGING *******************************************/
+$staging = $production;
+
+
+/******************************************* TESTING *******************************************/
+$testing = $production;
+$testing['transport'] = array(
+        'type' => 'file',
+        'options' => array(
+            'path' => ROOT_PATH . '/var/tmp/mailbox-test'
+        )
+     );
+
+/***************************************** DEVELOPMENT *****************************************/
+$development = $testing;
+$development['transport'] = array(
+        'type' => 'file',
+        'options' => array(
+            'path' => ROOT_PATH . '/var/tmp/mailbox'
+        )
+
+    );
+
+return array('production' => $production, 'staging' => $staging, 'testing' => $testing, 'development' => $development);

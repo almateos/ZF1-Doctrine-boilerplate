@@ -1,0 +1,3 @@
+[submodule "app/domain"]
+	path = app/domain
+	url = git@github.com:almateos/alma-domain.git

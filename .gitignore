@@ -1,0 +1,10 @@
+resources/vendor
+resources/bin
+public/assets/js/lib
+public/assets/js/main.js
+public/assets/jsmin
+public/assets/css
+composer.lock
+composer.phar
+.idea
+.DS_Store

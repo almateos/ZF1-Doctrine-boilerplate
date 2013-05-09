@@ -1,0 +1,76 @@
+<?php
+$root = dirname(dirname(__DIR__));
+$c = array();
+
+/***************************************** PRODUCTION *****************************************/
+$c['production'] = array(
+        'odm' => array(
+            'connection' => array(
+                'server' => '<serverhost>',
+                'options' => array(
+                    'replicaSet' => true,
+                    ),
+                ),
+            'options' => array(
+                'proxyDir'          => ROOT_PATH . '/var/tmp/cache',
+                'proxyNamespace'    => 'Proxies',
+                'hydratorDir'       => ROOT_PATH . '/var/tmp/cache',
+                'hydratorNamespace' => 'Hydrators',
+                'defaultDB'         => '<prod_mongodb_name>',
+                'autoGenerateHydratorClasses'   => false,
+                'autoGenerateProxyClasses'      => false
+                ),
+            'reader_namespace' => 'Doctrine\ODM\MongoDB\Mapping\Annotations',
+            'documents_path' => $root . '/app/domain/Documents',
+            ),
+
+        'orm' => array(
+                'options' => array('entities_path' => ROOT_PATH . '/app/domain/Entities'),
+                'connection' => array(
+                    'driver'    => 'pdo_mysql',
+                    'user'      => '<production mysql user>',
+                    'password'  => '<production mysql password>',
+                    'dbname'    => '<prod_sqldb_name>',
+                    ),
+                ),
+        );
+
+
+/******************************************* STAGING *******************************************/
+$c['staging'] = $c['production'];
+$c['staging']['orm']['connection']['user']      = '<staging mysql user>';
+$c['staging']['orm']['connection']['password']  = '<staging mysql password>';
+$c['staging']['orm']['connection']['dbname']    = '<staging_sqldb_name>';
+
+$c['staging']['odm']['connection']['server'] = '<staging server host>';
+$c['staging']['odm']['connection']['options']['replicaSet'] = false;
+$c['staging']['odm']['options']['defaultDB'] = '<staging_mongodb_name>';
+
+/******************************************* TESTING *******************************************/
+$c['testing'] = $c['production'];
+$c['testing']['orm']['connection']['user']      = '<testing mysql user>';
+$c['testing']['orm']['connection']['password']  = '<testing mysql password>';
+$c['testing']['orm']['connection']['dbname']    = '<testing_sqldb_name>';
+
+$c['testing']['odm']['connection']['server'] = 'mongodb://localhost';
+$c['testing']['odm']['connection']['options']['replicaSet'] = false;
+$c['testing']['odm']['options']['defaultDB'] = '<testing_mongodb_name>';
+
+/***************************************** DEVELOPMENT *****************************************/
+$c['development'] = $c['production'];
+$c['development']['odm']['connection']['server'] = 'mongodb://localhost';
+$c['development']['odm']['connection']['options']['replicaSet'] = false;
+$c['development']['odm']['options'] = array_merge(
+        $c['production']['odm']['options'],
+        array(
+            'autoGenerateHydratorClasses'   => true,
+            'autoGenerateProxyClasses'      => true,
+            'defaultDB'                     => '<testing_mongodb_name>'
+            )
+        );
+
+$c['development']['orm']['connection']['user']      = 'root';
+$c['development']['orm']['connection']['password']  = '';
+$c['development']['orm']['connection']['dbname']    = '<testing_sqldb_name>';
+
+return $c;
